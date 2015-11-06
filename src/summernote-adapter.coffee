@@ -35,16 +35,22 @@ getLang = ->
 ###
 Load a Summernote locale file
 
-@param {String} lang
+@param {String}   lang
+@param {Function} callback  executed when the locale is loaded
 ###
-loadLocale = (lang) ->
+loadLocale = (lang, callback) ->
   # english language is already included
-  if lang is localesMap['en'] then return
-
-  unless $("[data-summernote-locale='#{lang}']").length
+  # also don't load the locale if it has been loaded before
+  if (lang is localesMap['en']) or $("[data-summernote-locale='#{lang}']").length
+    if $.isFunction callback then callback()
+  else
     localeJS = document.createElement('script')
     localeJS.setAttribute 'data-summernote-locale', lang
     localeJS.setAttribute 'src', getLocalesPath() + "summernote-#{lang}.js"
+
+    localeJS.onload = ->
+      if $.isFunction callback then callback()
+
     document.querySelector('head').appendChild localeJS
 
 
@@ -67,8 +73,8 @@ setupEditor = (elem) ->
   unless settings.lang
     settings.lang = getLang()
 
-  loadLocale settings.lang
-  elem.summernote settings
+  loadLocale settings.lang, ->
+    elem.summernote settings
 
 
 ###
