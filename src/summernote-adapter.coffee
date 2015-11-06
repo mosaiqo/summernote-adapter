@@ -103,7 +103,7 @@ weird warning (thrown by pace.js)
 attachEditor = ->
   summernoteCSS = document.createElement('link')
   summernoteCSS.setAttribute 'rel', 'stylesheet'
-  summernoteCSS.setAttribute 'href', basePath + 'dist/summernote-bs3.css'
+  summernoteCSS.setAttribute 'href', basePath + 'dist/summernote.css'
 
   summernoteJS = document.createElement('script')
   summernoteJS.setAttribute 'src', basePath + 'dist/summernote.min.js'
