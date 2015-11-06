@@ -131,7 +131,7 @@
 
   $(function() {
     var script;
-    script = document.querySelector('script[src$="summernote-adapter.js"][data-summernote-path]');
+    script = document.querySelector('script[src$="summernote-adapter.js"][data-summernote-path]') || document.querySelector('script[src$="summernote-adapter.min.js"][data-summernote-path]');
     if (script) {
       basePath = script.getAttribute('data-summernote-path');
     }
