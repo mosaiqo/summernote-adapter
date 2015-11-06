@@ -6,7 +6,7 @@
   "authors": [
     "Josep Ramon Camps Lladó <jrcamps@mosaiqo.com>"
   ],
-  "main": "dist/summernote-adapter.js",
+  "main": "dist/summernote-adapter.min.js",
   "moduleType": [],
   "license": "MIT",
   "ignore": [
