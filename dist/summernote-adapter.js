@@ -45,18 +45,25 @@
   /*
   Load a Summernote locale file
   
-  @param {String} lang
+  @param {String}   lang
+  @param {Function} callback  executed when the locale is loaded
    */
 
-  loadLocale = function(lang) {
+  loadLocale = function(lang, callback) {
     var localeJS;
-    if (lang === localesMap['en']) {
-      return;
-    }
-    if (!$("[data-summernote-locale='" + lang + "']").length) {
+    if ((lang === localesMap['en']) || $("[data-summernote-locale='" + lang + "']").length) {
+      if ($.isFunction(callback)) {
+        return callback();
+      }
+    } else {
       localeJS = document.createElement('script');
       localeJS.setAttribute('data-summernote-locale', lang);
       localeJS.setAttribute('src', getLocalesPath() + ("summernote-" + lang + ".js"));
+      localeJS.onload = function() {
+        if ($.isFunction(callback)) {
+          return callback();
+        }
+      };
       return document.querySelector('head').appendChild(localeJS);
     }
   };
@@ -78,8 +85,9 @@
     if (!settings.lang) {
       settings.lang = getLang();
     }
-    loadLocale(settings.lang);
-    return elem.summernote(settings);
+    return loadLocale(settings.lang, function() {
+      return elem.summernote(settings);
+    });
   };
 
 
