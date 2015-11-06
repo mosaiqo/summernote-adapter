@@ -23,6 +23,15 @@ defaults =
 $doc  = $ document
 $root = $ 'html'
 
+
+###
+@return {String} the page language
+###
+getLang = ->
+  lang = $root.attr('lang') or 'en'
+  localesMap[lang] or lang
+
+
 ###
 Load a Summernote locale file
 
@@ -30,18 +39,13 @@ Load a Summernote locale file
 ###
 loadLocale = (lang) ->
   # english language is already included
-  if (lang is 'en') or (lang is localesMap['en']) then return
+  if lang is localesMap['en'] then return
 
-  locale = if localesMap[lang] then localesMap[lang] else lang
-
-  unless $("[data-summernote-locale='#{locale}']").length
+  unless $("[data-summernote-locale='#{lang}']").length
     localeJS = document.createElement('script')
-    localeJS.setAttribute 'data-summernote-locale', locale
-    localeJS.setAttribute 'src', getLocalesPath() + "summernote-#{locale}.js"
+    localeJS.setAttribute 'data-summernote-locale', lang
+    localeJS.setAttribute 'src', getLocalesPath() + "summernote-#{lang}.js"
     document.querySelector('head').appendChild localeJS
-
-
-
 
 
 ###
@@ -61,11 +65,10 @@ setupEditor = (elem) ->
   settings = $.extend {}, defaults, instanceSettings
 
   unless settings.lang
-    settings.lang = $root.attr('lang') or 'en'
+    settings.lang = getLang()
 
   loadLocale settings.lang
   elem.summernote settings
-
 
 
 ###
