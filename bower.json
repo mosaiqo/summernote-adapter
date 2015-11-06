@@ -1,0 +1,21 @@
+{
+  "name": "summernote-adapter",
+  "description": "",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mosaiqo/summernote-adapter",
+  "authors": [
+    "Josep Ramon Camps Lladó <jrcamps@mosaiqo.com>"
+  ],
+  "main": "dist/summernote-adapter.min.js",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.0",
+    "summernote": "~0.6.16"
+  }
+}
