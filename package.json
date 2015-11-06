@@ -8,11 +8,11 @@
     "bower": "^1.4.1"
   },
   "devDependencies": {
-    "coffee-script": "^1.9.3"
+    "coffee-script": "^1.9.3",
+    "uglify": "^0.1.5"
   },
   "scripts": {
-    "build": "./node_modules/coffee-script/bin/coffee -o dist -c src/summernote-adapter.coffee",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "build": "./node_modules/coffee-script/bin/coffee -o dist -c src/summernote-adapter.coffee; ./node_modules/uglify/bin/uglify -s dist/summernote-adapter.js -o dist/summernote-adapter.min.js"
   },
   "private": true
 }
