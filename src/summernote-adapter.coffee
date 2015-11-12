@@ -19,6 +19,36 @@ localesMap =
 defaults =
   iconPrefix: 'icon icon-'
 
+# default toolbar options
+defaultToolbar =
+  style:
+    style:         true
+  fontStyle:
+    bold:          true
+    italic:        true
+    strikethrough: true
+    underline:     false
+    superscript:   false
+    subscript:     false
+    paragraph:     true
+    clear:         false
+  font:
+    fontname:      false
+    fontsize:      false
+    height:        false
+  insert:
+    ul:            true
+    ol:            true
+    table:         true
+    link:          true
+    picture:       true
+    hr:            true
+  view:
+    fullscreen:    true
+    codeview:      false
+
+
+
 # cache some selectors
 $doc  = $ document
 $root = $ 'html'
@@ -68,7 +98,7 @@ setupEditor = (elem) ->
   # It must be a valid JSON
   instanceSettings = elem.data('editorSettings') or {}
 
-  settings = $.extend {}, defaults, instanceSettings
+  settings = $.extend {}, defaults, _parseOpts(instanceSettings)
 
   unless settings.lang
     settings.lang = getLang()
@@ -79,6 +109,53 @@ setupEditor = (elem) ->
 
 
 ###
+Inline (per instance) settings parsing
+###
+_parseOpts = (opts = {}) ->
+  toolbarOpts = $.extend {}, defaultToolbar
+
+  if opts.lists?
+    toolbarOpts.insert.ul = opts.lists
+    toolbarOpts.insert.ol = opts.lists
+
+  if opts.table?          then toolbarOpts.insert.table          = opts.table
+  if opts.picture?        then toolbarOpts.insert.picture        = opts.picture
+  if opts.link?           then toolbarOpts.insert.link           = opts.link
+  if opts.horizontalrule? then toolbarOpts.insert.horizontalrule = opts.tables
+
+  if opts.source?         then toolbarOpts.view.codeview         = opts.source
+  if opts.fullscreen?     then toolbarOpts.view.fullscreen       = opts.fullscreen
+
+  if opts.fonts?          then toolbarOpts.font.fontname         = opts.fonts
+  if opts.fontsize?       then toolbarOpts.font.fontsize         = opts.fontsize
+  if opts.lineheight?     then toolbarOpts.font.height           = opts.lineheight
+
+  if opts.align?          then toolbarOpts.fontStyle.paragraph   = opts.align
+  if opts.underline?      then toolbarOpts.fontStyle.underline   = opts.underline
+  if opts.superscript?    then toolbarOpts.fontStyle.superscript = opts.superscript
+  if opts.subscript?      then toolbarOpts.fontStyle.subscript   = opts.subscript
+
+  toolbar = []
+
+  for own group, buttons of toolbarOpts
+    console.group group
+    console.log 'buttons', buttons
+
+    groupButtons = []
+
+    for own k, v of buttons
+      console.log 'k', k
+      console.log 'v', v
+      if v then groupButtons.push k
+
+    if groupButtons.length then toolbar.push [group, groupButtons]
+
+    console.groupEnd()
+
+  { toolbar: toolbar }
+
+
+###
 Value sanitization
 
 Prevent empty values being converted to '<p><br></p>'# prevent empty values being converted to '<p><br></p>'
@@ -86,10 +163,10 @@ Prevent empty values being converted to '<p><br></p>'# prevent empty values bein
 _preventEmptyValuesOnSubmit = (elem) ->
   parentForm = elem.parents('div').first()
 
-    if parentForm.legth
-      parentForm.on 'submit', ->
-        if elem.summernote('isEmpty') or elem.val() is '<p><br></p>'
-          elem.val ''
+  if parentForm.legth
+    parentForm.on 'submit', ->
+      if elem.summernote('isEmpty') or elem.val() is '<p><br></p>'
+        elem.val ''
 
 
 
