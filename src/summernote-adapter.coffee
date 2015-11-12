@@ -135,22 +135,17 @@ _parseOpts = (opts = {}) ->
   if opts.superscript?    then toolbarOpts.fontStyle.superscript = opts.superscript
   if opts.subscript?      then toolbarOpts.fontStyle.subscript   = opts.subscript
 
+  if opts.styles          then toolbar.style.style               = opts.styles
+
   toolbar = []
 
   for own group, buttons of toolbarOpts
-    console.group group
-    console.log 'buttons', buttons
-
     groupButtons = []
 
     for own k, v of buttons
-      console.log 'k', k
-      console.log 'v', v
       if v then groupButtons.push k
 
     if groupButtons.length then toolbar.push [group, groupButtons]
-
-    console.groupEnd()
 
   { toolbar: toolbar }
 
