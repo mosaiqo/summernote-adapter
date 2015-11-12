@@ -73,8 +73,24 @@ setupEditor = (elem) ->
   unless settings.lang
     settings.lang = getLang()
 
-  loadLocale settings.lang, ->
+  loadLocale settings.lang, =>
     elem.summernote settings
+    _preventEmptyValuesOnSubmit elem
+
+
+###
+Value sanitization
+
+Prevent empty values being converted to '<p><br></p>'# prevent empty values being converted to '<p><br></p>'
+###
+_preventEmptyValuesOnSubmit = (elem) ->
+  parentForm = elem.parents('div').first()
+
+    if parentForm.legth
+      parentForm.on 'submit', ->
+        if elem.summernote('isEmpty') or elem.val() is '<p><br></p>'
+          elem.val ''
+
 
 
 ###
