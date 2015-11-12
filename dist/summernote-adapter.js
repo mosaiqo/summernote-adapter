@@ -181,18 +181,17 @@
     if (opts.subscript != null) {
       toolbarOpts.fontStyle.subscript = opts.subscript;
     }
+    if (opts.styles) {
+      toolbar.style.style = opts.styles;
+    }
     toolbar = [];
     for (group in toolbarOpts) {
       if (!hasProp.call(toolbarOpts, group)) continue;
       buttons = toolbarOpts[group];
-      console.group(group);
-      console.log('buttons', buttons);
       groupButtons = [];
       for (k in buttons) {
         if (!hasProp.call(buttons, k)) continue;
         v = buttons[k];
-        console.log('k', k);
-        console.log('v', v);
         if (v) {
           groupButtons.push(k);
         }
@@ -200,7 +199,6 @@
       if (groupButtons.length) {
         toolbar.push([group, groupButtons]);
       }
-      console.groupEnd();
     }
     return {
       toolbar: toolbar
