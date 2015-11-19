@@ -98,7 +98,7 @@ setupEditor = (elem) ->
   # It must be a valid JSON
   instanceSettings = elem.data('editorSettings') or {}
 
-  settings = $.extend {}, defaults, _parseOpts(instanceSettings)
+  settings = $.extend true, {}, defaults, _parseOpts(instanceSettings)
 
   unless settings.lang
     settings.lang = getLang()
@@ -112,7 +112,7 @@ setupEditor = (elem) ->
 Inline (per instance) settings parsing
 ###
 _parseOpts = (opts = {}) ->
-  toolbarOpts = $.extend {}, defaultToolbar
+  toolbarOpts = $.extend true, {}, defaultToolbar
 
   if opts.lists?
     toolbarOpts.insert.ul = opts.lists
