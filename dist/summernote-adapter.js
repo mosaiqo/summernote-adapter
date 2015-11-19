@@ -115,7 +115,7 @@
       return;
     }
     instanceSettings = elem.data('editorSettings') || {};
-    settings = $.extend({}, defaults, _parseOpts(instanceSettings));
+    settings = $.extend(true, {}, defaults, _parseOpts(instanceSettings));
     if (!settings.lang) {
       settings.lang = getLang();
     }
@@ -137,7 +137,7 @@
     if (opts == null) {
       opts = {};
     }
-    toolbarOpts = $.extend({}, defaultToolbar);
+    toolbarOpts = $.extend(true, {}, defaultToolbar);
     if (opts.lists != null) {
       toolbarOpts.insert.ul = opts.lists;
       toolbarOpts.insert.ol = opts.lists;
