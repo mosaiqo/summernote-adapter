@@ -1,7 +1,7 @@
 {
   "name": "summernote-adapter",
   "description": "",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Josep Ramon Camps Lladó <jrcamps@mosaiqo.com>",
   "homepage": "http://www.mosaiqo.com",
   "dependencies": {
