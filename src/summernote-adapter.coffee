@@ -18,6 +18,11 @@ localesMap =
 # default summernote options
 defaults =
   iconPrefix: 'icon icon-'
+  onImageUpload: (files) ->
+    note = $(this)
+    for file in files
+      _sendFile file, (data) -> note.summernote 'insertImage', data.url
+
 
 # default toolbar options
 defaultToolbar =
@@ -162,6 +167,24 @@ _preventEmptyValuesOnSubmit = (elem) ->
     parentForm.on 'submit', ->
       if elem.summernote('isEmpty') or elem.val() is '<p><br></p>'
         elem.val ''
+
+
+###
+Custom upload handler
+###
+_sendFile = (file, callback) ->
+  data = new FormData()
+  data.append 'file', file
+  $.ajax
+    url: '/api/uploads'
+    data: data
+    cache: false
+    contentType: false
+    processData: false
+    type: 'POST'
+    success: (data) ->
+      data = data.data or data
+      callback(data)
 
 
 
