@@ -140,7 +140,7 @@ _parseOpts = (opts = {}) ->
   if opts.superscript?    then toolbarOpts.fontStyle.superscript = opts.superscript
   if opts.subscript?      then toolbarOpts.fontStyle.subscript   = opts.subscript
 
-  if opts.styles          then toolbarOpts.style.style           = opts.styles
+  if opts.styles?         then toolbarOpts.style.style           = opts.styles
 
   toolbar = []
 
