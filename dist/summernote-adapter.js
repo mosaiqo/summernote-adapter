@@ -193,7 +193,7 @@
     if (opts.subscript != null) {
       toolbarOpts.fontStyle.subscript = opts.subscript;
     }
-    if (opts.styles) {
+    if (opts.styles != null) {
       toolbarOpts.style.style = opts.styles;
     }
     toolbar = [];
