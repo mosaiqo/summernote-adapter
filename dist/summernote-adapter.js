@@ -194,7 +194,7 @@
       toolbarOpts.fontStyle.subscript = opts.subscript;
     }
     if (opts.styles) {
-      toolbar.style.style = opts.styles;
+      toolbarOpts.style.style = opts.styles;
     }
     toolbar = [];
     for (group in toolbarOpts) {
