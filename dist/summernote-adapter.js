@@ -28,7 +28,6 @@
     callbacks: {
       onImageUpload: function(files) {
         var file, j, len, note, results;
-        console.log('onImageUpload');
         note = $(this);
         results = [];
         for (j = 0, len = files.length; j < len; j++) {
