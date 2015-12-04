@@ -20,7 +20,6 @@ defaults =
   dialogsInBody: true
   callbacks:
     onImageUpload: (files) ->
-      console.log 'onImageUpload'
       note = $(this)
       for file in files
         _sendFile file, (data) -> note.summernote 'insertImage', data.url
