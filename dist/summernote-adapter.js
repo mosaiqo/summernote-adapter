@@ -24,18 +24,61 @@
   };
 
   defaults = {
-    iconPrefix: 'icon icon-',
-    onImageUpload: function(files) {
-      var file, j, len, note, results;
-      note = $(this);
-      results = [];
-      for (j = 0, len = files.length; j < len; j++) {
-        file = files[j];
-        results.push(_sendFile(file, function(data) {
-          return note.summernote('insertImage', data.url);
-        }));
+    dialogsInBody: true,
+    callbacks: {
+      onImageUpload: function(files) {
+        var file, j, len, note, results;
+        console.log('onImageUpload');
+        note = $(this);
+        results = [];
+        for (j = 0, len = files.length; j < len; j++) {
+          file = files[j];
+          results.push(_sendFile(file, function(data) {
+            return note.summernote('insertImage', data.url);
+          }));
+        }
+        return results;
       }
-      return results;
+    },
+    icons: {
+      'align': 'icon icon-align-left',
+      'alignCenter': 'icon icon-align-center',
+      'alignJustify': 'icon icon-align-justify',
+      'alignLeft': 'icon icon-align-left',
+      'alignRight': 'icon icon-align-right',
+      'indent': 'icon icon-indent',
+      'outdent': 'icon icon-outdent',
+      'arrowsAlt': 'icon icon-arrows-alt',
+      'bold': 'icon icon-bold',
+      'caret': 'caret',
+      'circle': 'icon icon-circle',
+      'close': 'icon icon-close',
+      'code': 'icon icon-code',
+      'eraser': 'icon icon-eraser',
+      'font': 'icon icon-font',
+      'frame': 'icon icon-frame',
+      'italic': 'icon icon-italic',
+      'link': 'icon icon-link',
+      'unlink': 'icon icon-chain-broken',
+      'magic': 'icon icon-magic',
+      'menuCheck': 'icon icon-check',
+      'minus': 'icon icon-minus',
+      'orderedlist': 'icon icon-list-ol',
+      'pencil': 'icon icon-pencil',
+      'picture': 'icon icon-picture-o',
+      'question': 'icon icon-question',
+      'redo': 'icon icon-repeat',
+      'square': 'icon icon-square',
+      'strikethrough': 'icon icon-strikethrough',
+      'subscript': 'icon icon-subscript',
+      'superscript': 'icon icon-superscript',
+      'table': 'icon icon-table',
+      'textHeight': 'icon icon-text-height',
+      'trash': 'icon icon-trash',
+      'underline': 'icon icon-underline',
+      'undo': 'icon icon-undo',
+      'unorderedlist': 'icon icon-list-ul',
+      'video': 'icon icon-youtube-play'
     }
   };
 
@@ -286,7 +329,7 @@
 
   destroyEditor = function(elem) {
     if (editorLoaded) {
-      return elem.destroy();
+      return elem.summernote('destroy');
     }
   };
 
