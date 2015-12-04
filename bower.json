@@ -1,7 +1,7 @@
 {
   "name": "summernote-adapter",
   "description": "",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "homepage": "https://github.com/mosaiqo/summernote-adapter",
   "authors": [
     "Josep Ramon Camps Lladó <jrcamps@mosaiqo.com>"
@@ -16,6 +16,6 @@
   ],
   "dependencies": {
     "jquery": ">= 1.9.0",
-    "summernote": "~0.6.16"
+    "summernote": "https://github.com/josepramon/summernote.git#develop"
   }
 }
